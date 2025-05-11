@@ -4,9 +4,9 @@
 This project aims to create a TypeScript client for the Minimax accounting API (https://moj.minimax.rs/RS/API/). The client will be published as an NPM package for use in Node.js backends.
 
 ## Project Status
-- **Current Phase**: Project Configuration
-- **Completion**: 25%
-- **Last Task ID**: 13
+- **Current Phase**: Authentication Module
+- **Completion**: 27%
+- **Last Task ID**: 14
 - **Last Updated**: 2025-05-12
 
 ## Task Tracking Table
@@ -26,7 +26,7 @@ This project aims to create a TypeScript client for the Minimax accounting API (
 | 11 | Type Definitions | Define error types | ✅ | High | #9 | N11 |
 | 12 | Type Definitions | Create type definitions for configuration | ✅ | Medium | #9 | N12 |
 | 13 | Authentication Module | Implement OAuth2 client | ✅ | High | #9, #11 | N13 |
-| 14 | Authentication Module | Add token storage mechanism | ⏳ | High | #13 | N14 |
+| 14 | Authentication Module | Add token storage mechanism | ✅ | High | #13 | N14 |
 | 15 | Authentication Module | Create token refresh handling | ⏳ | High | #13, #14 | N15 |
 | 16 | Authentication Module | Implement session management | ⏳ | High | #13, #14, #15 | N16 |
 | 17 | Authentication Module | Add error handling for authentication | ⏳ | High | #11, #13 | N17 |
@@ -260,6 +260,24 @@ Implemented OAuth2 client for the Minimax API:
 - Used axios for HTTP requests with proper error handling
 - Added proper TypeScript types and JSDoc comments
 - Ensured compatibility with the existing type definitions
+
+### N14 (Task #14)
+Implemented robust token storage mechanisms for the Minimax client:
+- Created multiple token storage implementations in `src/auth/token-storage.ts`:
+  - `FileTokenStorage`: Stores tokens securely in a JSON file on disk
+  - `EnvTokenStorage`: Stores tokens in environment variables (for development/testing)
+  - `CustomTokenStorage`: Allows for custom token storage implementations
+- Added comprehensive options for each storage implementation:
+  - File path, directory creation, and file permissions for `FileTokenStorage`
+  - Environment variable name configuration for `EnvTokenStorage`
+  - Custom function handlers for `CustomTokenStorage`
+- Implemented proper error handling and security considerations:
+  - Secure file permissions (0o600 by default) for file-based storage
+  - Directory creation with proper error handling
+  - Graceful handling of missing or invalid tokens
+- Created comprehensive tests in `src/__tests__/auth/token-storage.test.ts`
+- Updated exports in `src/auth/index.ts` and `src/index.ts` for easy importing
+- Ensured backward compatibility with the existing `MemoryTokenStorage`
 
 <!-- Continue with notes for remaining tasks as they are worked on -->
 

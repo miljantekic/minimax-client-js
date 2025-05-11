@@ -3,5 +3,19 @@
  * A TypeScript client for the Minimax accounting API
  */
 
-// Simple export to test TypeScript compilation
+// Export version
 export const VERSION = '0.1.0';
+
+// Export authentication module and token storage implementations
+export {
+  OAuth2Client,
+  FileTokenStorage,
+  FileTokenStorageOptions,
+  EnvTokenStorage,
+  EnvTokenStorageOptions,
+  CustomTokenStorage,
+  CustomTokenStorageOptions
+} from './auth';
+
+// Export types
+export * from './types';
