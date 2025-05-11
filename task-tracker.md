@@ -5,8 +5,8 @@ This project aims to create a TypeScript client for the Minimax accounting API (
 
 ## Project Status
 - **Current Phase**: Project Configuration
-- **Completion**: 13%
-- **Last Task ID**: 6
+- **Completion**: 15%
+- **Last Task ID**: 8
 - **Last Updated**: 2025-05-12
 
 ## Task Tracking Table
@@ -20,7 +20,7 @@ This project aims to create a TypeScript client for the Minimax accounting API (
 | 5 | Project Configuration | Set up Jest for testing | ✅ | High | #3 | N5 |
 | 6 | Project Configuration | Configure TypeScript build process | ✅ | High | #3 | N6 |
 | 7 | Project Configuration | Set up GitHub Actions for CI/CD | ⏳ | Low | #3, #5 | N7 |
-| 8 | Project Configuration | Create NPM package configuration | ⏳ | Medium | None | N8 |
+| 8 | Project Configuration | Create NPM package configuration | ✅ | Medium | None | N8 |
 | 9 | Type Definitions | Define base type interfaces | ⏳ | High | #3 | N9 |
 | 10 | Type Definitions | Create API response types | ⏳ | High | #9 | N10 |
 | 11 | Type Definitions | Define error types | ⏳ | High | #9 | N11 |
@@ -170,6 +170,20 @@ Configured TypeScript build process with the following improvements:
 - Implemented explicit exclusion of test files from the build output
 - Added verification step to ensure no test files are included in the distribution
 - Successfully tested the build process with all formats working correctly
+
+### N8 (Task #8)
+Configured NPM package for publishing:
+- Updated package.json with proper metadata and configuration
+- Set package name to "minimax-client"
+- Added Miljan Tekic as the author
+- Configured peer dependencies for axios
+- Added sideEffects: false for better tree-shaking
+- Created .npmrc with publishing configuration
+- Verified and updated .npmignore to exclude development files
+- Updated README.md with correct installation instructions and publishing guide
+- Added npm scripts for testing with coverage and prepare hook
+  - The prepare script runs automatically when the package is installed as a dependency, ensuring the build is always up-to-date
+  - It's also triggered before npm publish, providing an additional safety check
 
 <!-- Continue with notes for remaining tasks as they are worked on -->
 

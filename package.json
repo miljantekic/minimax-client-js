@@ -1,7 +1,7 @@
 {
   "name": "minimax-client",
   "version": "0.1.0",
-  "description": "JavaScript client for Minimax accounting API",
+  "description": "TypeScript client library for the Minimax accounting API (https://moj.minimax.rs/RS/API/)",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -16,11 +16,13 @@
     "build:full": "node build.js",
     "dev": "npm run build:dev",
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "lint": "eslint --ext .ts,.js src/",
     "lint:fix": "eslint --ext .ts,.js src/ --fix",
     "format": "prettier --write 'src/**/*.{ts,js}'",
     "format:check": "prettier --check 'src/**/*.{ts,js}'",
-    "prepublishOnly": "npm run lint && npm run test && npm run build"
+    "prepublishOnly": "npm run lint && npm run test && npm run build",
+    "prepare": "npm run build"
   },
   "keywords": [
     "minimax",
@@ -29,7 +31,7 @@
     "client",
     "serbia"
   ],
-  "author": "",
+  "author": "Miljan Tekic",
   "license": "MIT",
   "dependencies": {
     "axios": "^1.6.2",
@@ -60,10 +62,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/minimax-client.git"
+    "url": "git+https://github.com/miljantekic/minimax-client-js.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/minimax-client/issues"
+    "url": "https://github.com/miljantekic/minimax-client-js/issues"
   },
-  "homepage": "https://github.com/yourusername/minimax-client#readme"
+  "homepage": "https://github.com/miljantekic/minimax-client-js#readme",
+  "sideEffects": false,
+  "peerDependencies": {
+    "axios": ">=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "axios": {
+      "optional": false
+    }
+  }
 }

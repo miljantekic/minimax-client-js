@@ -17,6 +17,12 @@ A TypeScript client library for the Minimax accounting API (https://moj.minimax.
 npm install minimax-client
 ```
 
+Or with yarn:
+
+```bash
+yarn add minimax-client
+```
+
 ## Usage
 
 ```typescript
@@ -63,6 +69,22 @@ npm test
 - `npm run lint:fix` - Fix linting issues
 - `npm run format` - Format code with Prettier
 - `npm run format:check` - Check formatting without making changes
+
+## Publishing
+
+To publish a new version of this package to npm:
+
+1. Update the version in `package.json`
+2. Run tests and ensure all pass
+3. Build the package
+4. Publish to npm
+
+```bash
+npm version [patch|minor|major]
+npm test
+npm run build
+npm publish
+```
 
 ## License
 
