@@ -1,3 +1,8 @@
+---
+trigger: model_decision
+description: When writing any tests
+---
+
 # Test Organization Rule
 
 ## Overview
