@@ -4,18 +4,19 @@
 This project aims to create a TypeScript client for the Minimax accounting API (https://moj.minimax.rs/RS/API/). The client will be published as an NPM package for use in Node.js backends.
 
 ## Project Status
-- **Current Phase**: Initial setup
-- **Completion**: 7%
+- **Current Phase**: Project Configuration
+- **Completion**: 9%
+- **Last Task ID**: 4
 - **Last Updated**: 2025-05-11
 
 ## Task Tracking Table
 
-| ID | Category | Task | Status | Priority | Dependencies | Notes ID |
+| ID | Phase | Task | Status | Priority | Dependencies | Notes ID |
 |----|----------|------|--------|----------|--------------|----------|
 | 1 | Project Structure | Create basic directory structure | ✅ | High | None | N1 |
 | 2 | Project Structure | Document API reference information | ✅ | High | None | N2 |
 | 3 | Project Configuration | Create tsconfig.json | ✅ | High | None | N3 |
-| 4 | Project Configuration | Configure ESLint and Prettier | ⏳ | Medium | None | N4 |
+| 4 | Project Configuration | Configure ESLint and Prettier | ✅ | Medium | None | N4 |
 | 5 | Project Configuration | Set up Jest for testing | ⏳ | High | #3 | N5 |
 | 6 | Project Configuration | Configure TypeScript build process | ⏳ | High | #3 | N6 |
 | 7 | Project Configuration | Set up GitHub Actions for CI/CD | ⏳ | Low | #3, #5 | N7 |
@@ -128,6 +129,21 @@ Created tsconfig.json with the following configuration:
 - Root directory: ./src
 - Includes various strict checks for better code quality
 - Configured for Node.js environment
+
+### N4 (Task #4)
+Configured ESLint and Prettier for code quality and consistent formatting:
+- Created .eslintrc.js with TypeScript-specific rules
+- Added .prettierrc with formatting preferences
+- Created .eslintignore and .prettierignore files
+- Added ESLint-Prettier integration with .eslintrc.prettier.js
+- Updated package.json with new scripts and dependencies:
+  - lint: Basic linting command
+  - lint:fix: Automatically fix linting issues
+  - format: Format code with Prettier
+  - format:check: Check formatting without making changes
+- Added eslint-config-prettier and eslint-plugin-prettier to prevent conflicts
+- Configured TypeScript-specific rules for better code quality
+- Set up naming conventions for interfaces, type aliases, and enums
 
 <!-- Continue with notes for remaining tasks as they are worked on -->
 
