@@ -1,0 +1,30 @@
+# Source files
+src/
+__tests__/
+test/
+
+# Configuration files
+.eslintrc.js
+.eslintignore
+.prettierrc
+.prettierignore
+.github/
+.vscode/
+.editorconfig
+.gitignore
+tsconfig.json
+jest.config.js
+jest.setup.js
+rollup.config.js
+
+# Development files
+coverage/
+node_modules/
+*.log
+.DS_Store
+
+# Documentation
+docs/
+*.md
+!README.md
+!LICENSE.md
