@@ -4,6 +4,8 @@
  * This barrel file exports all types from the module
  */
 
+import { RawAxiosRequestHeaders } from 'axios';
+
 // Export all types from this file
 export * from './errors';
 export * from './http';
@@ -47,7 +49,7 @@ export interface MinimaxClientConfig {
   /**
    * Default headers to include in all requests
    */
-  headers?: Record<string, string>;
+  headers?: RawAxiosRequestHeaders;
 }
 
 /**

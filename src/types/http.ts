@@ -25,6 +25,12 @@ export interface HttpRequestOptions extends Omit<AxiosRequestConfig, 'method' | 
    * If not provided, the default organization ID from the client config will be used
    */
   orgId?: string;
+  
+  /**
+   * Additional metadata for the request
+   * This is used internally by interceptors and middleware
+   */
+  metadata?: Record<string, any>;
 }
 
 /**

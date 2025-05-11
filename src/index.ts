@@ -14,8 +14,21 @@ export {
   EnvTokenStorage,
   EnvTokenStorageOptions,
   CustomTokenStorage,
-  CustomTokenStorageOptions
+  CustomTokenStorageOptions,
+  SessionManager
 } from './auth';
+
+// Export HTTP client module
+export {
+  HttpClient,
+  HttpClientOptions,
+  RequestInterceptor,
+  ResponseInterceptor,
+  ErrorMiddleware,
+  RetryConfig,
+  RetryStrategy,
+  RowVersionHandler
+} from './http';
 
 // Export types
 export * from './types';
