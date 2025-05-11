@@ -13,6 +13,8 @@ import {
   CustomTokenStorage,
   CustomTokenStorageOptions
 } from './token-storage';
+import { TokenRefreshManager, TokenRefreshOptions } from './token-refresh';
+import { SessionManager, SessionOptions, SessionState } from './session';
 
 export {
   OAuth2Client,
@@ -21,5 +23,10 @@ export {
   EnvTokenStorage,
   EnvTokenStorageOptions,
   CustomTokenStorage,
-  CustomTokenStorageOptions
+  CustomTokenStorageOptions,
+  TokenRefreshManager,
+  TokenRefreshOptions,
+  SessionManager,
+  SessionOptions,
+  SessionState
 };

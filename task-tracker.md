@@ -5,8 +5,8 @@ This project aims to create a TypeScript client for the Minimax accounting API (
 
 ## Project Status
 - **Current Phase**: Authentication Module
-- **Completion**: 27%
-- **Last Task ID**: 14
+- **Completion**: 33%
+- **Last Task ID**: 16
 - **Last Updated**: 2025-05-12
 
 ## Task Tracking Table
@@ -27,8 +27,8 @@ This project aims to create a TypeScript client for the Minimax accounting API (
 | 12 | Type Definitions | Create type definitions for configuration | ✅ | Medium | #9 | N12 |
 | 13 | Authentication Module | Implement OAuth2 client | ✅ | High | #9, #11 | N13 |
 | 14 | Authentication Module | Add token storage mechanism | ✅ | High | #13 | N14 |
-| 15 | Authentication Module | Create token refresh handling | ⏳ | High | #13, #14 | N15 |
-| 16 | Authentication Module | Implement session management | ⏳ | High | #13, #14, #15 | N16 |
+| 15 | Authentication Module | Create token refresh handling | ✅ | High | #13, #14 | N15 |
+| 16 | Authentication Module | Implement session management | ✅ | High | #13, #14, #15 | N16 |
 | 17 | Authentication Module | Add error handling for authentication | ⏳ | High | #11, #13 | N17 |
 | 18 | Authentication Module | Write unit tests for auth module | ⏳ | High | #13, #16, #17 | N18 |
 | 19 | HTTP Client | Create base HTTP client | ⏳ | High | #9, #11, #13 | N19 |
@@ -278,6 +278,38 @@ Implemented robust token storage mechanisms for the Minimax client:
 - Created comprehensive tests in `src/__tests__/auth/token-storage.test.ts`
 - Updated exports in `src/auth/index.ts` and `src/index.ts` for easy importing
 - Ensured backward compatibility with the existing `MemoryTokenStorage`
+
+### N15 (Task #15)
+Implemented robust token refresh handling for the Minimax client:
+- Created `TokenRefreshManager` class in `src/auth/token-refresh.ts` that handles:
+  - Automatic token refresh when tokens are about to expire
+  - Retry logic for handling transient network errors during refresh
+  - Concurrency management to prevent duplicate refresh requests
+- Added comprehensive configuration options:
+  - Configurable refresh buffer time before token expiration
+  - Maximum number of refresh attempts
+  - Delay between refresh attempts
+- Implemented proper error handling for different error scenarios:
+  - Network errors are retried with exponential backoff
+  - Authentication errors with 401 status are not retried
+  - Other errors are retried based on configuration
+- Created comprehensive tests in `src/__tests__/auth/token-refresh.test.ts`
+- Updated exports in `src/auth/index.ts` for easy importing
+
+### N16 (Task #16)
+Implemented session management for the Minimax client:
+- Created `SessionManager` class in `src/auth/session.ts` that handles:
+  - Authentication and token management
+  - Organization selection and tracking
+  - Automatic token refresh via TokenRefreshManager
+  - Session state tracking and retrieval
+- Added comprehensive configuration options:
+  - Default organization ID
+  - Token refresh settings
+- Implemented proper error handling for authentication failures
+- Created comprehensive tests in `src/__tests__/auth/session.test.ts`
+- Updated exports in `src/auth/index.ts` for easy importing
+- Ensured compatibility with the existing OAuth2Client and TokenRefreshManager
 
 <!-- Continue with notes for remaining tasks as they are worked on -->
 
