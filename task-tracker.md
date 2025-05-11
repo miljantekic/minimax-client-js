@@ -5,8 +5,8 @@ This project aims to create a TypeScript client for the Minimax accounting API (
 
 ## Project Status
 - **Current Phase**: Project Configuration
-- **Completion**: 15%
-- **Last Task ID**: 8
+- **Completion**: 17%
+- **Last Task ID**: 9
 - **Last Updated**: 2025-05-12
 
 ## Task Tracking Table
@@ -21,7 +21,7 @@ This project aims to create a TypeScript client for the Minimax accounting API (
 | 6 | Project Configuration | Configure TypeScript build process | ✅ | High | #3 | N6 |
 | 7 | Project Configuration | Set up GitHub Actions for CI/CD | ⏳ | Low | #3, #5 | N7 |
 | 8 | Project Configuration | Create NPM package configuration | ✅ | Medium | None | N8 |
-| 9 | Type Definitions | Define base type interfaces | ⏳ | High | #3 | N9 |
+| 9 | Type Definitions | Define base type interfaces | ✅ | High | #3 | N9 |
 | 10 | Type Definitions | Create API response types | ⏳ | High | #9 | N10 |
 | 11 | Type Definitions | Define error types | ⏳ | High | #9 | N11 |
 | 12 | Type Definitions | Create type definitions for configuration | ⏳ | Medium | #9 | N12 |
@@ -184,6 +184,32 @@ Configured NPM package for publishing:
 - Added npm scripts for testing with coverage and prepare hook
   - The prepare script runs automatically when the package is installed as a dependency, ensuring the build is always up-to-date
   - It's also triggered before npm publish, providing an additional safety check
+
+### N9 (Task #9)
+Defined base type interfaces for the Minimax client library:
+- Created core type definitions in `src/types/index.ts`:
+  - `MinimaxClientConfig` for client configuration options
+  - `MinimaxCredentials` for authentication credentials
+  - `MinimaxToken` for OAuth2 token response
+  - `MinimaxResource` as the base interface for all API resources
+  - Query parameter interfaces for pagination, sorting, filtering, and expansion
+  - `ListResponse` for handling paginated list responses
+  - Common resource interfaces like `Organization`, `User`, `Address`, and `Contact`
+- Implemented error types in `src/types/errors.ts`:
+  - `MinimaxError` as the base error class
+  - Specialized error classes for authentication, validation, not found, concurrency, rate limit, server, and network errors
+  - Error factory function to create appropriate error instances from API responses
+- Added HTTP client types in `src/types/http.ts`:
+  - Request and response interceptor types
+  - HTTP request options interface
+  - Authentication state and token storage interfaces
+  - Memory-based token storage implementation
+- Created API module base types in `src/types/api.ts`:
+  - Base interfaces for API modules with CRUD operations
+  - Read-only API module interface
+  - Options interfaces for various API operations
+  - Custom action and batch operation interfaces
+- Set up barrel exports in `index.ts` for easy importing
 
 <!-- Continue with notes for remaining tasks as they are worked on -->
 
