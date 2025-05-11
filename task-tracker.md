@@ -4,9 +4,9 @@
 This project aims to create a TypeScript client for the Minimax accounting API (https://moj.minimax.rs/RS/API/). The client will be published as an NPM package for use in Node.js backends.
 
 ## Project Status
-- **Current Phase**: Authentication Module
-- **Completion**: 33%
-- **Last Task ID**: 16
+- **Current Phase**: HTTP Client
+- **Completion**: 40%
+- **Last Task ID**: 18
 - **Last Updated**: 2025-05-12
 
 ## Task Tracking Table
@@ -29,8 +29,8 @@ This project aims to create a TypeScript client for the Minimax accounting API (
 | 14 | Authentication Module | Add token storage mechanism | ✅ | High | #13 | N14 |
 | 15 | Authentication Module | Create token refresh handling | ✅ | High | #13, #14 | N15 |
 | 16 | Authentication Module | Implement session management | ✅ | High | #13, #14, #15 | N16 |
-| 17 | Authentication Module | Add error handling for authentication | ⏳ | High | #11, #13 | N17 |
-| 18 | Authentication Module | Write unit tests for auth module | ⏳ | High | #13, #16, #17 | N18 |
+| 17 | Authentication Module | Add error handling for authentication | ✅ | High | #11, #13 | N17 |
+| 18 | Authentication Module | Write unit tests for auth module | ✅ | High | #13, #16, #17 | N18 |
 | 19 | HTTP Client | Create base HTTP client | ⏳ | High | #9, #11, #13 | N19 |
 | 20 | HTTP Client | Implement request/response interceptors | ⏳ | High | #19 | N20 |
 | 21 | HTTP Client | Add error handling middleware | ⏳ | High | #11, #19 | N21 |
@@ -310,6 +310,29 @@ Implemented session management for the Minimax client:
 - Created comprehensive tests in `src/__tests__/auth/session.test.ts`
 - Updated exports in `src/auth/index.ts` for easy importing
 - Ensured compatibility with the existing OAuth2Client and TokenRefreshManager
+
+### N17 (Task #17)
+Implemented specialized error handling for authentication in the Minimax client:
+- Created `auth-error.ts` module with dedicated authentication error handling functions:
+  - `AuthErrorCode` enum to categorize OAuth2 error responses
+  - `createAuthError` function to generate descriptive error messages based on error codes
+  - `handleAuthError` to process API errors and convert them to appropriate error types
+- Added helper functions to detect specific authentication error scenarios:
+  - `isAccountLockoutError` - detects when an account is locked due to too many failed attempts
+  - `isInvalidCredentialsError` - identifies invalid username/password errors
+  - `isTokenExpiredError` - detects expired or invalid tokens
+- Integrated with existing error types from `src/types/errors.ts`
+- Updated exports in `src/auth/index.ts` for easy importing
+
+### N18 (Task #18)
+Wrote comprehensive unit tests for the authentication module:
+- Created `auth-error.test.ts` with tests for all the new error handling functions:
+  - Tests for creating authentication errors with different error codes
+  - Tests for handling various API error responses
+  - Tests for error detection helper functions
+- Ensured all tests are passing with good coverage for the auth module
+- Verified integration with existing auth components
+- Fixed edge cases in error handling implementation
 
 <!-- Continue with notes for remaining tasks as they are worked on -->
 

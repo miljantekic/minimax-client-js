@@ -15,6 +15,14 @@ import {
 } from './token-storage';
 import { TokenRefreshManager, TokenRefreshOptions } from './token-refresh';
 import { SessionManager, SessionOptions, SessionState } from './session';
+import {
+  AuthErrorCode,
+  createAuthError,
+  handleAuthError,
+  isAccountLockoutError,
+  isInvalidCredentialsError,
+  isTokenExpiredError
+} from './auth-error';
 
 export {
   OAuth2Client,
@@ -28,5 +36,12 @@ export {
   TokenRefreshOptions,
   SessionManager,
   SessionOptions,
-  SessionState
+  SessionState,
+  // Auth error handling
+  AuthErrorCode,
+  createAuthError,
+  handleAuthError,
+  isAccountLockoutError,
+  isInvalidCredentialsError,
+  isTokenExpiredError
 };
