@@ -8,7 +8,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module',
-    project: './tsconfig.json',
+    project: ['./tsconfig.json', './tsconfig.test.json'],
   },
   env: {
     node: true,
@@ -50,5 +50,5 @@ module.exports = {
     'quotes': ['error', 'single', { avoidEscape: true }],
     'semi': ['error', 'always'],
   },
-  ignorePatterns: ['dist', 'node_modules', '*.js', '*.d.ts'],
+  ignorePatterns: ['dist', 'node_modules', '*.d.ts'],
 };

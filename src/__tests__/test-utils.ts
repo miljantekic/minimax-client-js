@@ -15,7 +15,7 @@ export function createMockResponse<T>(
   status = 200,
   statusText = 'OK',
   headers = {}
-) {
+): { data: T; status: number; statusText: string; headers: Record<string, unknown>; config: Record<string, unknown> } {
   return {
     data,
     status,
@@ -36,8 +36,8 @@ export function createMockError(
   message: string,
   code = 'ERR_BAD_REQUEST',
   status = 400
-) {
-  const error = new Error(message) as any;
+): Error & { code: string; response: { status: number; data: { message: string }; headers: Record<string, unknown>; config: Record<string, unknown> } } {
+  const error = new Error(message) as Error & { code: string; response: { status: number; data: { message: string }; headers: Record<string, unknown>; config: Record<string, unknown> } };
   error.code = code;
   error.response = {
     status,
