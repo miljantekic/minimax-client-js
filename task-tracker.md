@@ -5,7 +5,7 @@ This project aims to create a TypeScript client for the Minimax accounting API (
 
 ## Project Status
 - **Current Phase**: Project Configuration
-- **Completion**: 17%
+- **Completion**: 20%
 - **Last Task ID**: 9
 - **Last Updated**: 2025-05-12
 
@@ -22,9 +22,9 @@ This project aims to create a TypeScript client for the Minimax accounting API (
 | 7 | Project Configuration | Set up GitHub Actions for CI/CD | ⏳ | Low | #3, #5 | N7 |
 | 8 | Project Configuration | Create NPM package configuration | ✅ | Medium | None | N8 |
 | 9 | Type Definitions | Define base type interfaces | ✅ | High | #3 | N9 |
-| 10 | Type Definitions | Create API response types | ⏳ | High | #9 | N10 |
-| 11 | Type Definitions | Define error types | ⏳ | High | #9 | N11 |
-| 12 | Type Definitions | Create type definitions for configuration | ⏳ | Medium | #9 | N12 |
+| 10 | Type Definitions | Create API response types | ✅ | High | #9 | N10 |
+| 11 | Type Definitions | Define error types | ✅ | High | #9 | N11 |
+| 12 | Type Definitions | Create type definitions for configuration | ✅ | Medium | #9 | N12 |
 | 13 | Authentication Module | Implement OAuth2 client | ⏳ | High | #9, #11 | N13 |
 | 14 | Authentication Module | Add token storage mechanism | ⏳ | High | #13 | N14 |
 | 15 | Authentication Module | Create token refresh handling | ⏳ | High | #13, #14 | N15 |
@@ -210,6 +210,42 @@ Defined base type interfaces for the Minimax client library:
   - Options interfaces for various API operations
   - Custom action and batch operation interfaces
 - Set up barrel exports in `index.ts` for easy importing
+
+### N10 (Task #10)
+Created comprehensive API response types in `src/types/responses.ts`:
+- Implemented `ListResponse` interface for paginated responses
+- Added `MinimaxErrorResponse` for API error responses
+- Created `BatchOperationResponse` for batch operations
+- Added `ResponseMetadata` and `ApiResponse` interfaces for consistent response handling
+- Implemented specific resource response types for invoices, customers, products, tax rates, and currencies
+- Ensured all types have proper JSDoc comments for better developer experience
+- Updated API module interfaces to use the new response types
+
+### N11 (Task #11)
+Enhanced error types in `src/types/errors.ts`:
+- Created `MinimaxError` as the base error class
+- Implemented specialized error classes for different error scenarios:
+  - `AuthenticationError` for authentication failures
+  - `ValidationError` for request validation failures
+  - `NotFoundError` for resource not found errors
+  - `ConcurrencyError` for RowVersion conflicts
+  - `RateLimitError` for API rate limit issues
+  - `ServerError` for unexpected server responses
+  - `NetworkError` for network connectivity issues
+- Added a factory function `createErrorFromResponse` to create appropriate error instances from API responses
+- Included proper error properties and type definitions for better error handling
+
+### N12 (Task #12)
+Created comprehensive configuration type definitions:
+- Enhanced `MinimaxClientConfig` with additional configuration options:
+  - HTTP request configuration
+  - Token storage configuration
+  - Logger configuration
+- Added `HttpRequestConfig` interface for HTTP client configuration
+- Implemented `TokenStorageConfig` for token storage options
+- Created `LoggerConfig` for logging configuration
+- Ensured all configuration types have proper JSDoc comments
+- Added support for custom implementations through interfaces
 
 <!-- Continue with notes for remaining tasks as they are worked on -->
 

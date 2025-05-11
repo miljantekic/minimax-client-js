@@ -3,37 +3,8 @@
  */
 
 import { MinimaxResource, QueryParams } from './index';
+import { ListResponse, BatchOperationResponse } from './responses';
 import { HttpRequestOptions } from './http';
-
-/**
- * Base interface for API module options
- */
-export interface ApiModuleOptions {
-  /**
-   * Organization ID to use for API calls
-   */
-  orgId?: string;
-}
-
-/**
- * Base interface for resource creation options
- */
-export interface CreateOptions extends HttpRequestOptions {}
-
-/**
- * Base interface for resource retrieval options
- */
-export interface GetOptions extends HttpRequestOptions {}
-
-/**
- * Base interface for resource update options
- */
-export interface UpdateOptions extends HttpRequestOptions {}
-
-/**
- * Base interface for resource deletion options
- */
-export interface DeleteOptions extends HttpRequestOptions {}
 
 /**
  * Base interface for resource listing options
@@ -47,27 +18,27 @@ export interface ApiModule<T extends MinimaxResource, CreateParams, UpdateParams
   /**
    * Get a resource by ID
    */
-  get(id: string, options?: GetOptions): Promise<T>;
+  get(id: string, options?: HttpRequestOptions): Promise<T>;
 
   /**
    * List resources with optional filtering, sorting, and pagination
    */
-  list(options?: ListOptions): Promise<T[]>;
+  list(options?: ListOptions): Promise<ListResponse<T>>;
 
   /**
    * Create a new resource
    */
-  create(params: CreateParams, options?: CreateOptions): Promise<T>;
+  create(params: CreateParams, options?: HttpRequestOptions): Promise<T>;
 
   /**
    * Update an existing resource
    */
-  update(id: string, params: UpdateParams, options?: UpdateOptions): Promise<T>;
+  update(id: string, params: UpdateParams, options?: HttpRequestOptions): Promise<T>;
 
   /**
    * Delete a resource by ID
    */
-  delete(id: string, options?: DeleteOptions): Promise<void>;
+  delete(id: string, options?: HttpRequestOptions): Promise<void>;
 }
 
 /**
@@ -77,23 +48,12 @@ export interface ReadOnlyApiModule<T extends MinimaxResource> {
   /**
    * Get a resource by ID
    */
-  get(id: string, options?: GetOptions): Promise<T>;
+  get(id: string, options?: HttpRequestOptions): Promise<T>;
 
   /**
    * List resources with optional filtering, sorting, and pagination
    */
-  list(options?: ListOptions): Promise<T[]>;
-}
-
-/**
- * Base class for implementing custom actions on API resources
- */
-export interface CustomActionOptions extends HttpRequestOptions {
-  /**
-   * HTTP method to use for the custom action
-   * @default 'POST'
-   */
-  method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+  list(options?: ListOptions): Promise<ListResponse<T>>;
 }
 
 /**
@@ -105,4 +65,14 @@ export interface BatchOperationOptions extends HttpRequestOptions {
    * @default false
    */
   continueOnError?: boolean;
+}
+
+/**
+ * Base interface for an API module that supports batch operations
+ */
+export interface BatchApiModule<T extends MinimaxResource, BatchParams> {
+  /**
+   * Execute a batch operation
+   */
+  batch(params: BatchParams[], options?: BatchOperationOptions): Promise<BatchOperationResponse<T>>;
 }

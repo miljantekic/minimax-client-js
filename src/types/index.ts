@@ -8,6 +8,7 @@
 export * from './errors';
 export * from './http';
 export * from './api';
+export * from './responses';
 
 /**
  * Configuration options for the Minimax client
@@ -44,9 +45,9 @@ export interface MinimaxClientConfig {
   timeout?: number;
   
   /**
-   * Maximum number of retry attempts for failed requests (defaults to 3)
+   * Default headers to include in all requests
    */
-  maxRetries?: number;
+  headers?: Record<string, string>;
 }
 
 /**
@@ -298,3 +299,5 @@ export interface Contact extends MinimaxResource {
    */
   Position?: string;
 }
+
+// Simplified configuration types
