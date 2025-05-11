@@ -59,6 +59,51 @@ function ensureDirectoryExists(dir) {
 }
 
 /**
+ * Verify that no test files are included in the build output
+ * @param {string} dir - The directory to check
+ * @returns {boolean} - True if no test files are found, false otherwise
+ */
+function verifyNoTestFiles(dir) {
+  console.log(`${colors.bright}${colors.cyan}Verifying no test files in build output...${colors.reset}`);
+  let testFilesFound = false;
+  
+  function checkDir(currentDir) {
+    const items = fs.readdirSync(currentDir);
+    
+    for (const item of items) {
+      const itemPath = path.join(currentDir, item);
+      const stats = fs.statSync(itemPath);
+      
+      if (stats.isDirectory()) {
+        // Check if directory name indicates test files
+        if (item === '__tests__' || item === 'test' || item === 'tests') {
+          console.log(`${colors.bright}${colors.red}Found test directory in build output: ${itemPath}${colors.reset}`);
+          testFilesFound = true;
+        } else {
+          // Recursively check subdirectories
+          checkDir(itemPath);
+        }
+      } else if (stats.isFile()) {
+        // Check if file name indicates test files
+        if (item.includes('.test.') || item.includes('.spec.')) {
+          console.log(`${colors.bright}${colors.red}Found test file in build output: ${itemPath}${colors.reset}`);
+          testFilesFound = true;
+        }
+      }
+    }
+  }
+  
+  checkDir(dir);
+  
+  if (!testFilesFound) {
+    console.log(`${colors.bright}${colors.green}✓ No test files found in build output${colors.reset}\n`);
+    return true;
+  }
+  
+  return false;
+}
+
+/**
  * Main build function
  */
 async function build() {
@@ -77,21 +122,29 @@ async function build() {
     if (runCommand('rollup -c', 'Build with Rollup')) {
       console.log(`${colors.bright}${colors.green}Build completed successfully!${colors.reset}`);
       
-      // List the generated files
+      // Verify no test files in the build output
       const distDir = path.join(__dirname, 'dist');
-      const files = fs.readdirSync(distDir);
+      const noTestFiles = verifyNoTestFiles(distDir);
       
-      console.log(`\n${colors.bright}${colors.cyan}Generated files:${colors.reset}`);
-      files.forEach(file => {
-        const filePath = path.join(distDir, file);
-        const stats = fs.statSync(filePath);
-        if (stats.isFile()) {
-          const size = (stats.size / 1024).toFixed(2);
-          console.log(`${colors.dim}- ${file} (${size} KB)${colors.reset}`);
-        }
-      });
-      
-      console.log(`\n${colors.bright}${colors.green}The library is ready for use!${colors.reset}`);
+      if (noTestFiles) {
+        // List the generated files
+        const files = fs.readdirSync(distDir);
+        
+        console.log(`\n${colors.bright}${colors.cyan}Generated files:${colors.reset}`);
+        files.forEach(file => {
+          const filePath = path.join(distDir, file);
+          const stats = fs.statSync(filePath);
+          if (stats.isFile()) {
+            const size = (stats.size / 1024).toFixed(2);
+            console.log(`${colors.dim}- ${file} (${size} KB)${colors.reset}`);
+          }
+        });
+        
+        console.log(`\n${colors.bright}${colors.green}The library is ready for use!${colors.reset}`);
+      } else {
+        console.log(`\n${colors.bright}${colors.red}Warning: Test files were found in the build output.${colors.reset}`);
+        console.log(`${colors.yellow}Please check your build configuration to ensure test files are excluded.${colors.reset}`);
+      }
     }
   }
 }
