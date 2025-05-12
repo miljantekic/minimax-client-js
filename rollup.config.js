@@ -2,6 +2,7 @@ import typescript from '@rollup/plugin-typescript';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import terser from '@rollup/plugin-terser';
+import json from '@rollup/plugin-json';
 import pkg from './package.json';
 import path from 'path';
 
@@ -54,6 +55,7 @@ export default [
       }),
       resolve(),
       commonjs(),
+      json(),
     ],
   },
   // ES module (for bundlers) build
@@ -74,6 +76,7 @@ export default [
       }),
       resolve(),
       commonjs(),
+      json(),
     ],
   },
   // Minified browser-ready build (if needed in the future)
@@ -94,6 +97,7 @@ export default [
       }),
       resolve(),
       commonjs(),
+      json(),
       terser(),
     ],
   },

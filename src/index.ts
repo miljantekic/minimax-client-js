@@ -6,29 +6,13 @@
 // Export version
 export const VERSION = '0.1.0';
 
-// Export authentication module and token storage implementations
-export {
-  OAuth2Client,
-  FileTokenStorage,
-  FileTokenStorageOptions,
-  EnvTokenStorage,
-  EnvTokenStorageOptions,
-  CustomTokenStorage,
-  CustomTokenStorageOptions,
-  SessionManager
-} from './auth';
+// Export client module
+export { MinimaxClient } from './client';
+export type { Customer, CreateCustomerParams, UpdateCustomerParams, CustomerFilterOptions } from './client';
+export type { Invoice, InvoiceItem, CreateInvoiceParams, UpdateInvoiceParams, InvoiceFilterOptions } from './client';
 
-// Export HTTP client module
-export {
-  HttpClient,
-  HttpClientOptions,
-  RequestInterceptor,
-  ResponseInterceptor,
-  ErrorMiddleware,
-  RetryConfig,
-  RetryStrategy,
-  RowVersionHandler
-} from './http';
+// Export resource modules
+export { ReceivedInvoicesModule, CustomersModule } from './client/resources';
 
-// Export types
-export * from './types';
+// Note: The old implementation (auth, http, api, types) has been removed
+// in favor of the simplified client implementation.

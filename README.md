@@ -28,14 +28,10 @@ yarn add minimax-client
 ```typescript
 import { MinimaxClient } from 'minimax-client';
 
-// Initialize the client
+// Initializes the client and authenticates
 const client = new MinimaxClient({
   clientId: 'your-client-id',
   clientSecret: 'your-client-secret',
-});
-
-// Authenticate
-await client.authenticate({
   username: 'your-username',
   password: 'your-password',
 });
