@@ -1,12 +1,13 @@
 /**
- * Example script for creating and issuing an invoice using the Minimax client
+ * Example script for working with employees using the Minimax client
  * 
- * This script demonstrates how to use the Minimax client to get all invoices.
+ * This script demonstrates how to use the Minimax client to get all employees,
+ * filter employees, and perform other employee-related operations.
  * It uses environment variables for authentication credentials.
  * 
  * To run this script:
  * 1. Create a .env file with your Minimax credentials (see .env.example)
- * 2. Run the script: npm run example:invoice
+ * 2. Run the script: npm run example:employees
  */
 
 // Load environment variables
@@ -28,9 +29,9 @@ async function main() {
   try {
     await client.authenticate();
     
-    // Get all received invoices
-    const invoices = await client.receivedInvoices.getAll();
-    console.log('Received invoices:', invoices.length);
+    // Get all employees
+    const employees = await client.employees.getAll();
+    console.log('Employees:', JSON.stringify(employees, null, 2));
   } catch (error) {
     console.error('Error:', error);
     process.exit(1);

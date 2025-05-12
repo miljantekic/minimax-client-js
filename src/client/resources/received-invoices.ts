@@ -4,7 +4,7 @@
  * Module for interacting with received invoices in the Minimax API
  */
 
-import { BaseResource } from './base-resource';
+import { BaseResource, ListResponse } from './base-resource';
 
 /**
  * Resource reference interface
@@ -324,27 +324,7 @@ export interface UpdateInvoiceParams {
 /**
  * Received invoices list response
  */
-export interface ReceivedInvoicesListResponse {
-  /**
-   * Array of received invoices
-   */
-  Rows: ReceivedInvoice[];
-  
-  /**
-   * Total rows
-   */
-  TotalRows: number;
-  
-  /**
-   * Current page number
-   */
-  CurrentPageNumber: number;
-  
-  /**
-   * Page size
-   */
-  PageSize: number;
-}
+export type ReceivedInvoicesListResponse = ListResponse<ReceivedInvoice>;
 
 /**
  * Invoice filter options

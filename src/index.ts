@@ -12,7 +12,9 @@ export type { Customer, CreateCustomerParams, UpdateCustomerParams, CustomerFilt
 export type { ReceivedInvoice, InvoiceItem, InvoiceCreateData, InvoiceUpdateData, InvoiceFilterOptions } from './client';
 
 // Export resource modules
-export { ReceivedInvoicesModule, CustomersModule } from './client/resources';
+export { ReceivedInvoicesModule, CustomersModule, EmployeesModule } from './client/resources';
+export type { Employee, EmployeeFilterOptions } from './client/resources';
+export type { ListResponse } from './client/resources/base-resource';
 
 // Note: The old implementation (auth, http, api, types) has been removed
 // in favor of the simplified client implementation.

@@ -2,4 +2,5 @@
 export * from './received-invoices';
 export * from './customers';
 export * from './organizations';
+export * from './employees';
 export * from './base-resource';

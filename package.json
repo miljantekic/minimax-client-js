@@ -27,6 +27,7 @@
     "format": "prettier --write 'src/**/*.{ts,js}'",
     "format:check": "prettier --check 'src/**/*.{ts,js}'",
     "example:invoice": "node examples/invoice-example.js",
+    "example:employees": "node examples/employees-example.js",
     "prepublishOnly": "npm run lint && npm run test && npm run build",
     "prepare": "npm run build"
   },

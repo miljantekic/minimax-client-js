@@ -6,7 +6,7 @@
 
 import axios, { AxiosInstance } from 'axios';
 // These will be imported after the files are created
-import { ReceivedInvoicesModule, CustomersModule, OrganizationsModule } from './resources';
+import { ReceivedInvoicesModule, CustomersModule, OrganizationsModule, EmployeesModule } from './resources';
 
 /**
  * Minimax client configuration
@@ -81,6 +81,7 @@ export class MinimaxClient {
   public readonly receivedInvoices: ReceivedInvoicesModule;
   public readonly customers: CustomersModule;
   public readonly organizations: OrganizationsModule;
+  public readonly employees: EmployeesModule;
   
   /**
    * Default API URLs
@@ -114,6 +115,7 @@ export class MinimaxClient {
     this.receivedInvoices = new ReceivedInvoicesModule(this);
     this.customers = new CustomersModule(this);
     this.organizations = new OrganizationsModule(this);
+    this.employees = new EmployeesModule(this);
   }
   
   /**

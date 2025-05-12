@@ -7,6 +7,31 @@
 import { MinimaxClient } from '../minimax-client';
 
 /**
+ * Generic list response interface
+ */
+export interface ListResponse<T> {
+  /**
+   * Array of items
+   */
+  Rows: T[];
+  
+  /**
+   * Total rows
+   */
+  TotalRows: number;
+  
+  /**
+   * Current page number
+   */
+  CurrentPageNumber: number;
+  
+  /**
+   * Page size
+   */
+  PageSize: number;
+}
+
+/**
  * Base resource module
  */
 export abstract class BaseResource {
