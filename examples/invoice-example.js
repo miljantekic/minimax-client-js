@@ -61,7 +61,7 @@ async function main() {
     // Get all received invoices
     console.log('Getting all received invoices...');
     const invoices = await client.receivedInvoices.getAll();
-    console.log('Received invoices:', invoices);
+    console.log('Received invoices:', JSON.stringify(invoices, null, 2));
   } catch (error) {
     console.error('Error:', error);
     process.exit(1);

@@ -7,58 +7,123 @@
 import { BaseResource } from './base-resource';
 
 /**
- * Invoice resource
+ * Resource reference interface
  */
-export interface Invoice {
+export interface ResourceReference {
+  /**
+   * Resource ID
+   */
+  ID: number;
+  
+  /**
+   * Resource name
+   */
+  Name: string;
+  
+  /**
+   * Resource URL
+   */
+  ResourceUrl: string;
+}
+
+/**
+ * Received invoice resource
+ */
+export interface ReceivedInvoice {
   /**
    * Unique identifier
    */
-  Id: string;
+  ReceivedInvoiceId: number;
+  
+  /**
+   * Year
+   */
+  Year: number;
+  
+  /**
+   * Invoice number
+   */
+  InvoiceNumber: number;
+  
+  /**
+   * Document numbering
+   */
+  DocumentNumbering: ResourceReference;
+  
+  /**
+   * Document reference
+   */
+  DocumentReference: string;
+  
+  /**
+   * Customer
+   */
+  Customer: ResourceReference;
+  
+  /**
+   * Analytic
+   */
+  Analytic: ResourceReference;
+  
+  /**
+   * Currency
+   */
+  Currency: ResourceReference;
+  
+  /**
+   * Date issued
+   */
+  DateIssued: string;
+  
+  /**
+   * Transaction date
+   */
+  DateTransaction: string;
+  
+  /**
+   * Due date
+   */
+  DateDue: string;
+  
+  /**
+   * Date received
+   */
+  DateReceived: string;
+  
+  /**
+   * Invoice amount
+   */
+  InvoiceAmount: number;
+  
+  /**
+   * Status
+   */
+  Status: string;
+  
+  /**
+   * Payment status
+   */
+  PaymentStatus: string;
+  
+  /**
+   * Invoice value
+   */
+  InvoiceValue: number;
+  
+  /**
+   * Paid value
+   */
+  PaidValue: number;
+  
+  /**
+   * Record modified date
+   */
+  RecordDtModified: string;
   
   /**
    * Concurrency control token
    */
   RowVersion: string;
-  
-  /**
-   * Invoice number
-   */
-  Number: string;
-  
-  /**
-   * Invoice date
-   */
-  Date: string;
-  
-  /**
-   * Invoice due date
-   */
-  DueDate: string;
-  
-  /**
-   * Customer ID
-   */
-  CustomerId: string;
-  
-  /**
-   * Total amount
-   */
-  TotalAmount: number;
-  
-  /**
-   * Currency code
-   */
-  CurrencyCode: string;
-  
-  /**
-   * Invoice status
-   */
-  Status: 'Draft' | 'Issued' | 'Paid' | 'Cancelled';
-  
-  /**
-   * Invoice items
-   */
-  Items?: InvoiceItem[];
 }
 
 /**
@@ -71,17 +136,12 @@ export interface InvoiceItem {
   Id: string;
   
   /**
-   * Concurrency control token
+   * Invoice ID
    */
-  RowVersion: string;
+  InvoiceId: string;
   
   /**
-   * Product ID
-   */
-  ProductId?: string;
-  
-  /**
-   * Description
+   * Item description
    */
   Description: string;
   
@@ -101,14 +161,39 @@ export interface InvoiceItem {
   DiscountPercentage?: number;
   
   /**
-   * Tax rate
+   * Tax rate percentage
    */
-  TaxRate?: number;
+  TaxRatePercentage: number;
   
   /**
    * Total amount
    */
   TotalAmount: number;
+}
+
+/**
+ * Invoice create data
+ */
+export interface InvoiceCreateData {
+  /**
+   * Invoice data for creation
+   */
+  [key: string]: any;
+}
+
+/**
+ * Invoice update data
+ */
+export interface InvoiceUpdateData {
+  /**
+   * Row version for concurrency control
+   */
+  RowVersion: string;
+  
+  /**
+   * Other invoice data for update
+   */
+  [key: string]: any;
 }
 
 /**
@@ -237,18 +322,28 @@ export interface UpdateInvoiceParams {
 }
 
 /**
- * Invoice list response
+ * Received invoices list response
  */
-interface InvoiceListResponse {
+export interface ReceivedInvoicesListResponse {
   /**
-   * Array of invoices
+   * Array of received invoices
    */
-  value: Invoice[];
+  Rows: ReceivedInvoice[];
   
   /**
-   * Total count of invoices (if requested)
+   * Total rows
    */
-  '@odata.count'?: number;
+  TotalRows: number;
+  
+  /**
+   * Current page number
+   */
+  CurrentPageNumber: number;
+  
+  /**
+   * Page size
+   */
+  PageSize: number;
 }
 
 /**
@@ -305,121 +400,102 @@ export class ReceivedInvoicesModule extends BaseResource {
    * Get all received invoices
    * 
    * @param options Filter options
-   * @returns Promise resolving to an array of invoices
+   * @returns Promise resolving to an array of received invoices
    */
-  public async getAll(options: InvoiceFilterOptions = {}): Promise<Invoice[]> {
+  public async getAll(options: InvoiceFilterOptions = {}): Promise<ReceivedInvoice[]> {
     const params: Record<string, any> = {};
-    
-    // Build filter string
-    const filters: string[] = [];
-    
-    if (options.customerId) {
-      filters.push(`CustomerId eq '${options.customerId}'`);
-    }
-    
-    if (options.status) {
-      filters.push(`Status eq '${options.status}'`);
-    }
-    
-    if (options.dateFrom) {
-      filters.push(`Date ge ${options.dateFrom}`);
-    }
-    
-    if (options.dateTo) {
-      filters.push(`Date le ${options.dateTo}`);
-    }
-    
-    if (filters.length > 0) {
-      params.$filter = filters.join(' and ');
-    }
     
     // Add pagination
     if (options.limit) {
-      params.$top = options.limit;
+      params.pageSize = options.limit;
     }
     
     if (options.offset) {
-      params.$skip = options.offset;
+      const page = Math.floor(options.offset / (options.limit || 10)) + 1;
+      params.page = page;
     }
     
     // Add count
     if (options.count) {
       params.$count = true;
     }
-    
-    const response = await this.client.get<InvoiceListResponse>(this.getEndpoint(), { params });
-    return response.value;
+      
+    const response = await this.client.get<ReceivedInvoicesListResponse>(this.getEndpoint(), { params });
+    return response.Rows;
   }
   
   /**
-   * Get an invoice by ID
+   * Get a received invoice by ID
    * 
-   * @param id Invoice ID
-   * @returns Promise resolving to the invoice
+   * @param id Received invoice ID
+   * @returns Promise resolving to the received invoice
    */
-  public async get(id: string): Promise<Invoice> {
-    return this.client.get<Invoice>(this.getEndpoint(id));
+  public async get(id: string): Promise<ReceivedInvoice> {
+    return this.client.get<ReceivedInvoice>(this.getEndpoint(id));
   }
   
   /**
-   * Create a new invoice
+   * Create a new received invoice
    * 
-   * @param params Invoice creation parameters
-   * @returns Promise resolving to the created invoice
+   * @param data Invoice data
+   * @returns Promise resolving to the created received invoice
    */
-  public async create(params: CreateInvoiceParams): Promise<Invoice> {
-    return this.client.post<Invoice>(this.endpoint, params);
+  public async create(data: InvoiceCreateData): Promise<ReceivedInvoice> {
+    return this.client.post<ReceivedInvoice>(this.getEndpoint(), data);
   }
   
   /**
-   * Update an invoice
+   * Update a received invoice
    * 
-   * @param id Invoice ID
-   * @param params Invoice update parameters
-   * @returns Promise resolving to the updated invoice
+   * @param id Received invoice ID
+   * @param data Invoice data with RowVersion
+   * @returns Promise resolving to the updated received invoice
    */
-  public async update(id: string, params: UpdateInvoiceParams): Promise<Invoice> {
-    return this.client.put<Invoice>(this.getEndpoint(id), params);
+  public async update(id: string, data: InvoiceUpdateData): Promise<ReceivedInvoice> {
+    return this.client.put<ReceivedInvoice>(this.getEndpoint(id), data);
   }
   
   /**
-   * Delete an invoice
+   * Delete a received invoice
    * 
-   * @param id Invoice ID
-   * @returns Promise resolving when the invoice is deleted
+   * @param id Received invoice ID
+   * @param rowVersion RowVersion for concurrency control
+   * @returns Promise resolving when the received invoice is deleted
    */
-  public async delete(id: string): Promise<void> {
-    await this.client.delete(this.getEndpoint(id));
+  public async delete(id: string, rowVersion: string): Promise<void> {
+    return this.client.delete(this.getEndpoint(id), {
+      params: { RowVersion: rowVersion }
+    });
   }
   
   /**
-   * Issue an invoice
+   * Issue a received invoice
    * 
-   * @param id Invoice ID
-   * @returns Promise resolving to the issued invoice
+   * @param id Received invoice ID
+   * @returns Promise resolving to the issued received invoice
    */
-  public async issue(id: string): Promise<Invoice> {
-    return this.client.post<Invoice>(this.getEndpoint(`${id}/issue`));
+  public async issue(id: string): Promise<ReceivedInvoice> {
+    return this.client.post<ReceivedInvoice>(this.getEndpoint(id) + '/issue');
   }
   
   /**
-   * Mark an invoice as paid
+   * Mark a received invoice as paid
    * 
-   * @param id Invoice ID
+   * @param id Received invoice ID
    * @param paymentDate Payment date (YYYY-MM-DD)
-   * @returns Promise resolving to the paid invoice
+   * @returns Promise resolving to the paid received invoice
    */
-  public async markAsPaid(id: string, paymentDate: string): Promise<Invoice> {
-    return this.client.post<Invoice>(this.getEndpoint(`${id}/pay`), { paymentDate });
+  public async markAsPaid(id: string, paymentDate: string): Promise<ReceivedInvoice> {
+    return this.client.post<ReceivedInvoice>(this.getEndpoint(id) + '/pay', { paymentDate });
   }
   
   /**
-   * Cancel an invoice
+   * Cancel a received invoice
    * 
-   * @param id Invoice ID
-   * @returns Promise resolving to the cancelled invoice
+   * @param id Received invoice ID
+   * @returns Promise resolving to the cancelled received invoice
    */
-  public async cancel(id: string): Promise<Invoice> {
-    return this.client.post<Invoice>(this.getEndpoint(`${id}/cancel`));
+  public async cancel(id: string): Promise<ReceivedInvoice> {
+    return this.client.post<ReceivedInvoice>(this.getEndpoint(id) + '/cancel');
   }
 }

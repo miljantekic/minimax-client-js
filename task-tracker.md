@@ -4,9 +4,9 @@
 This project aims to create a TypeScript client for the Minimax accounting API (https://moj.minimax.rs/RS/API/). The client will be published as an NPM package for use in Node.js backends.
 
 ## Project Status
-- **Current Phase**: Customers API
-- **Completion**: 85%
-- **Last Task ID**: 45
+- **Current Phase**: API Endpoint Updates
+- **Completion**: 90%
+- **Last Task ID**: 95
 - **Last Updated**: 2025-05-12
 
 ## Task Tracking Table
@@ -442,18 +442,18 @@ Defined invoice types and interfaces and implemented a simplified client approac
 - Created a new simplified `MinimaxClient` class in `src/client/minimax-client.ts` that provides:
   - Easy initialization with credentials
   - Built-in authentication and token refresh
-  - Direct access to resource modules via properties (e.g., `client.invoices`, `client.customers`)
+  - Direct access to resource modules via properties (e.g., `client.receivedInvoices`, `client.customers`)
 - Implemented resource modules with intuitive methods:
-  - `InvoicesModule` with methods like `getAll()`, `get()`, `create()`, `update()`, `delete()`, `issue()`, etc.
+  - `ReceivedInvoicesModule` with methods like `getAll()`, `get()`, `create()`, `update()`, `delete()`, `issue()`, etc.
   - `CustomersModule` with similar CRUD operations
 - Designed the API to match the desired usage pattern from the README
 - Created comprehensive type definitions for all resources and parameters
-- Added an example in `examples/invoice-example.ts` to demonstrate the simplified usage
+- Added an example in `examples/invoice-example.js` to demonstrate the simplified usage
 - Improved developer experience by reducing complexity and boilerplate code
 
 ### N31-N38 (Tasks #31-#38)
-Implemented the complete Invoices API module:
-- Created `InvoicesModule` class in `src/client/resources/invoices.ts` with the following features:
+Implemented the complete Received Invoices API module:
+- Created `ReceivedInvoicesModule` class in `src/client/resources/received-invoices.ts` with the following features:
   - Comprehensive CRUD operations (create, read, update, delete)
   - Support for listing invoices with pagination, filtering, and sorting
   - Methods for invoice-specific operations like issuing, canceling, and paying
@@ -463,9 +463,8 @@ Implemented the complete Invoices API module:
 - Added invoice payment tracking functionality
 - Created comprehensive type definitions for all invoice-related entities
 - Designed for easy integration with the MinimaxClient class
-- Added example usage in `examples/invoice-example.ts`
-- Created a helper script (`run-example.js`) to compile and run TypeScript examples
-- Note: When testing with the example script, we encountered a 404 error when trying to access the invoices endpoint. This may be due to API access restrictions or incorrect endpoint configuration. The client implementation is correct, but actual API access depends on user credentials and permissions.
+- Added example usage in `examples/invoice-example.js`
+- Created a helper script to run the example directly via npm scripts
 
 ### N39-N45 (Tasks #39-#45)
 Implemented the complete Customers API module:
@@ -485,7 +484,19 @@ Implemented the complete Customers API module:
 - Created a JavaScript version of the invoice example for easier execution
 - Added the JSON plugin to the rollup configuration to fix build issues
 - Successfully built the project and verified that the authentication works correctly
-- Note: The 404 error when accessing the invoices endpoint is likely due to API access restrictions with the test credentials
+
+### N95 (Task #95) - API Endpoint Updates
+- Updated the API endpoints to match the Swagger documentation:
+  - Changed the organizations endpoint from `api/currentuser/orgs` to `api/orgs/allOrgs`
+  - Renamed the invoices module to `ReceivedInvoicesModule` and updated its endpoint to `api/orgs/{organizationId}/receivedInvoices`
+- Updated the interface types to match the actual API response format:
+  - Created `ResourceReference` interface for consistent reference objects
+  - Updated `ReceivedInvoice` interface with all fields from the API response
+  - Improved the response handling to properly parse the `Rows` array
+- Enhanced the example script to better display invoice details
+- Fixed issues with organization ID handling in the `BaseResource` class
+- Successfully tested the client with real API credentials and confirmed it can retrieve received invoices
+- Improved error handling and logging throughout the codebase
 
 <!-- Continue with notes for remaining tasks as they are worked on -->
 

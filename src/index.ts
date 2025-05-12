@@ -9,7 +9,7 @@ export const VERSION = '0.1.0';
 // Export client module
 export { MinimaxClient } from './client';
 export type { Customer, CreateCustomerParams, UpdateCustomerParams, CustomerFilterOptions } from './client';
-export type { Invoice, InvoiceItem, CreateInvoiceParams, UpdateInvoiceParams, InvoiceFilterOptions } from './client';
+export type { ReceivedInvoice, InvoiceItem, InvoiceCreateData, InvoiceUpdateData, InvoiceFilterOptions } from './client';
 
 // Export resource modules
 export { ReceivedInvoicesModule, CustomersModule } from './client/resources';
