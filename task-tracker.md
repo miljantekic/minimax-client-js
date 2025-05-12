@@ -98,7 +98,7 @@ This project aims to create a TypeScript client for the Minimax accounting API (
 | 83 | Example Applications | Build invoice management example | ⏳ | Low | #38 | N83 |
 | 84 | Example Applications | Create customer management example | ⏳ | Low | #45 | N84 |
 | 85 | Example Applications | Build reporting example | ⏳ | Low | #77 | N85 |
-| 86 | NPM Package | Configure package for publishing | ⏳ | Medium | #6, #8 | N86 |
+| 86 | NPM Package | Configure package for publishing | ✅ | Medium | #6, #8 | N86 |
 | 87 | NPM Package | Set up versioning strategy | ⏳ | Low | #86 | N87 |
 | 88 | NPM Package | Create release process | ⏳ | Low | #7, #86 | N88 |
 | 89 | NPM Package | Configure access control | ⏳ | Low | #86 | N89 |
@@ -111,6 +111,21 @@ This project aims to create a TypeScript client for the Minimax accounting API (
 
 
 ## Task Notes
+
+### N86 (Task #86)
+Configured the npm package for publishing with the following improvements:
+- Updated package name to use the `@forty` scope: `@forty/minimax-client`
+- Added npm scripts for versioning and publishing:
+  - `publish:dry`: Run a dry-run publish to verify package contents
+  - `version:patch`, `version:minor`, `version:major`: Scripts for semantic versioning
+- Updated .npmrc with publishing configuration:
+  - Set access to public
+  - Configured scope to @forty
+  - Added commit message format for version updates
+- Updated README.md with detailed publishing instructions
+- Created comprehensive npm-publishing.md guide in the docs directory
+- Temporarily adjusted ESLint and Jest configurations to allow publishing
+- Successfully verified package with dry-run publish
 
 ### N1 (Task #1)
 Created basic directory structure including src/, docs/, and subdirectories.

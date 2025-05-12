@@ -316,7 +316,7 @@ export class MinimaxClient {
     try {
       // The endpoint should already be properly constructed by the resource module's getEndpoint method
       // No need to modify it here
-      let url = endpoint;
+      const url = endpoint;
       
       const response = await this.httpClient.request<T>({
         method,
@@ -340,7 +340,7 @@ export class MinimaxClient {
           
           // The endpoint should already be properly constructed by the resource module's getEndpoint method
           // No need to modify it here
-          let url = endpoint;
+          const url = endpoint;
           
           // Retry the request
           const retryResponse = await this.httpClient.request<T>({
