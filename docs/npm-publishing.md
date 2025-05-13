@@ -89,14 +89,14 @@ Finally, publish the package to npm:
 npm publish
 ```
 
-The package will be published with public access under the `@forty` scope.
+The package will be published with public access
 
 ### 6. Verify Publication
 
 After publishing, verify that the package is available on npm:
 
 ```bash
-npm view @forty/minimax-client
+npm view minimax-client
 ```
 
 ## Troubleshooting
@@ -124,7 +124,7 @@ npm access ls-packages
 To make the package public if it was accidentally published as private:
 
 ```bash
-npm access public @forty/minimax-client
+npm access public minimax-client
 ```
 
 ### Version Conflicts
@@ -162,5 +162,5 @@ To maintain multiple versions of the package:
 If a version needs to be deprecated:
 
 ```bash
-npm deprecate @forty/minimax-client@"<0.2.0" "Critical security issue, please update to 0.2.0 or later"
+npm deprecate minimax-client@"<0.2.0" "Critical security issue, please update to 0.2.0 or later"
 ```
