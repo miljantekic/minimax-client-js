@@ -1,6 +1,12 @@
 # Minimax Client
 
+[![npm version](https://img.shields.io/badge/npm-v0.1.2-blue)](https://www.npmjs.com/package/minimax-client)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Status: Development](https://img.shields.io/badge/Status-Development-orange)](https://www.npmjs.com/package/minimax-client)
+
 A TypeScript client library for the Minimax accounting API (https://moj.minimax.rs/RS/API/).
+
+> **⚠️ IMPORTANT**: This library is still in active development and not intended for production use. Breaking changes may occur between versions.
 
 ## Features
 
@@ -66,84 +72,39 @@ npm test
 - `npm run format` - Format code with Prettier
 - `npm run format:check` - Check formatting without making changes
 
-## Publishing
+## API Resources
 
-To publish a new version of this package to npm:
+The client provides access to the following Minimax API resources:
 
-Before publishing, ensure all tests pass and the package builds correctly:
+- Invoices
+- Customers
+- Journals
+- (More resources coming soon)
 
-```bash
-npm run lint
-npm test
-npm run build
+## Error Handling
+
+```typescript
+try {
+  const result = await client.invoices.getById('invalid-id');
+} catch (error) {
+  if (error.isMinimaxError) {
+    // Handle Minimax API error
+    console.error(`API Error: ${error.message}`);
+    console.error(`Status: ${error.status}`);
+  } else {
+    // Handle network or other errors
+    console.error('Unexpected error:', error);
+  }
+}
 ```
 
-### Dry Run
+## Documentation
 
-To verify what will be published without actually publishing:
+For more detailed information about the Minimax API and how to use this client, please refer to:
 
-```bash
-npm run publish:dry
-```
-
-This will show you exactly what files will be included in the published package.
-
-### Versioning
-
-We follow semantic versioning. Use one of these commands to update the version:
-
-```bash
-# For bug fixes and small changes
-npm run version:patch   # 0.1.0 -> 0.1.1
-
-# For new features that don't break existing functionality
-npm run version:minor   # 0.1.1 -> 0.2.0
-
-# For breaking changes
-npm run version:major   # 0.2.0 -> 1.0.0
-```
-
-These commands will:
-1. Update the version in package.json
-2. Create a git tag with the new version
-3. Create a commit with the message "Release v[version]"
-
-### Publishing to npm
-
-To publish the package to npm:
-
-```bash
-npm publish
-```
-
-You must be logged in to npm with an account that has access to the @forty organization:
-
-```bash
-npm login
-```
-
-### Complete Release Process
-
-A complete release process looks like this:
-
-```bash
-# 1. Ensure you're on the main branch with latest changes
-git checkout main
-git pull
-
-# 2. Run tests and linting
-npm run lint
-npm test
-
-# 3. Update version (choose one)
-npm run version:patch  # or version:minor or version:major
-
-# 4. Push the new version tag to GitHub
-git push --follow-tags
-
-# 5. Publish to npm
-npm publish
-```
+- [API Reference](./docs/api-reference.md)
+- [API Endpoints](./docs/api-endpoints.md)
+- [NPM Publishing Guide](./docs/npm-publishing.md)
 
 ## License
 
