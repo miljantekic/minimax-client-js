@@ -1,6 +1,6 @@
 {
   "name": "minimax-client",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "TypeScript client library for the Minimax accounting API (https://moj.minimax.rs/RS/API/)",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
